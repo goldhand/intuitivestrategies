@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load i18n mezzanine_tags blog_tags keyword_tags disqus_tags %}
+
+{% block meta_title %}{% if page %}{{ page.richtextpage.meta_title }}{% else %}{% trans "Blog" %}{% endif %}{% endblock %}
+
+{% block meta_keywords %}{% metablock %}
+{% keywords_for page as keywords %}
+{% for keyword in keywords %}
+    {% if not forloop.first %}, {% endif %}
+    {{ keyword }}
+{% endfor %}
+{% endmetablock %}{% endblock %}
+
+{% block meta_description %}{% metablock %}
+{{ page.description }}
+{% endmetablock %}{% endblock %}
+
+{% block title %}
+{% if page %}
+	{% if author %}
+	{{ author.get_full_name|default:author.username }}
+	{% else %}
+	{% editable page.title %}{{ page.title }}{% endeditable %}
+	{% endif %}
+{% else %}
+{% trans "Blog" %}
+{% endif %}
+{% endblock %}
+
+{% block breadcrumb_menu %}
+{{ block.super }}
+{% if tag or category or year or month or author %}
+<li>{% spaceless %}
+{% if tag %}
+    {% trans "Tag:" %} {{ tag }}
+{% else %}{% if category %}
+    {% trans "Category:" %} {{ category }}
+{% else %}{% if year or month %}
+    {% if month %}{{ month }}, {% endif %}{{ year }}
+{% else %}{% if author %}
+    {% trans "Author:" %} {{ author.get_full_name|default:author.username }}
+{% endif %}{% endif %}{% endif %}{% endif %}
+{% endspaceless %}
+</li>
+{% endif %}
+{% endblock %}
+
+
+{% block main %}
+<div class="row">
+{% block center %}
+
+{% endblock %}
+
+{% block right_panel %}
+
+{% endblock %}
+
+</div>
+{% endblock %}

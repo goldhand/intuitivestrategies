@@ -1,0 +1,99 @@
+<div id="MediaCarousel" class="carousel slide span6 hidden-tablet hidden-phone">
+
+	<div class="carousel-inner">
+
+	{% for image in page.author.caroselimage_set.all %}
+
+		<div class="{% if forloop.first %}active {% endif %}item">
+		<img src="{{ MEDIA_URL }}{{ image.image }}"/>
+
+    			<div class="carousel-caption">
+
+			<h4>{{ image.title }}</h4>
+			<p>{{ image.description|truncatewords:20 }}</p>
+
+		    	</div>
+		
+		</div>
+
+	{% endfor %}
+
+	</div>
+
+<a class="carousel-control left" href="#MediaCarousel" data-slide="prev">&lsaquo;</a>
+<a class="carousel-control right" href="#MediaCarousel" data-slide="next">&rsaquo;</a>
+
+</div>
+
+{# end of the carosel large display. Start carosel modals #}
+
+<div class="span3 hidden-tablet hidden-phone" id="CarouselIcons">
+
+<ul class="thumbnails">
+        
+{% for image in page.author.caroselimage_set.all %}
+
+<li>
+<a class="thumbnail" data-toggle="modal" href="#{{ image.slug }}">
+<img src="{{ MEDIA_URL }}{{ image.thumbnail }}" />
+</a>
+</li>
+
+{% endfor %}
+
+</ul>
+
+
+</div>
+
+<div class="row hidden-desktop" id="CarouselIcons">
+        
+{% for image in page.author.caroselimage_set.all %}
+
+	<div class='span3'>
+		<div class='well-small' style='height:30px; font-size:14px;'>
+		<p><strong>{{ image.title }}</strong><p>
+		</div>
+	<a class="thumbnail" data-toggle="modal" href="#{{ image.slug }}">
+	<img src="{{ MEDIA_URL }}{{ image.image }}" style='height:90px;' />
+	</a>
+	<p>{{ image.description|truncatewords:10 }}</p>
+	</div>
+
+{% endfor %}
+
+</div>
+
+
+{% for image in page.author.caroselimage_set.all %}
+
+<div class="modal hide fade" id="{{ image.slug }}">
+
+	<div class="modal-header">
+
+       	<button type="button" class="close" data-dismiss="modal">×</button>
+       	<h3>{{ image.title }}</h3>
+
+       	</div>
+
+       	<div class="modal-body">
+	
+       	<img src="{{ MEDIA_URL }}{{ image.image }}"/>
+
+       	</div>
+
+       	<div class="modal-footer">
+
+       	<p>{{ image.description }}</p>
+       	<a href="#" class="btn" data-dismiss="modal">Close</a>
+
+<!-- THIS NEEDS TO LINK TO THE NEXT IMAGE INSTANCE
+ <a href="#ernest4" class="btn btn-primary" data-dismiss="modal">View next</a>
+-->
+
+      	</div>
+
+</div>
+
+{% endfor %}
+

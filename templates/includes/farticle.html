@@ -1,0 +1,39 @@
+
+{% if page.slug == 'home' %}
+<div class='span2'>
+
+<a href='/news/{{ farticle.id }}'><img src='/_media/{{ farticle.image }}' alt='{{ farticle.image_alt }}' /></a>
+
+</div>
+
+<div class='span3'>
+
+<h3><a href='/news/{{ farticle.id }}'>{{ farticle.title }}</a></h3>
+<article>{{ farticle.body|truncatewords:25 }}</article>
+
+</div>
+
+{% elif page.slug == 'news' %}
+
+<div class='span8 well-small'>
+
+	<div class='row'>
+
+		<div class='span3'>
+
+		<a href='/news/{{ farticle.id }}'><img src='/_media/{{ farticle.image }}' alt='{{ farticle.image_alt }}' /></a>
+
+		</div>
+
+		<div class='span4'>
+
+		<h2><a href='/news/{{ farticle.id }}'>{{ farticle.title }}</a></h2>
+		<article>{{ farticle.body|truncatewords:50 }}</article>
+
+		</div>
+
+	</div>
+
+</div>
+
+{% endif %}

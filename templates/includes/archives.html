@@ -1,0 +1,10 @@
+
+<h2>Archives</h2>
+<ul id="accordion" class="nav nav-list">
+	<li><a href="#archives2012" class="heading" data-toggle="collapse" data-target="#2012">2012</a>
+		<ul id="2012" class="nav nav-list collapse">
+{% for month in months %}
+			<li>
+<a href="{% url blog.views.Month month.0 month.1 %}">{{ month.2 }}</a>
+			</li>
+{% endfor %}

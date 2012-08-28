@@ -1,0 +1,8 @@
+*.pyc
+*.pyo
+*.db
+.DS_Store
+.coverage
+.swp
+local_settings.py
+media/

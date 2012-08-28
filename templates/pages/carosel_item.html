@@ -1,0 +1,16 @@
+{% extends "pages/richtextpage.html" %}
+
+{% block main %}
+
+{% include "include/carosel.html" %}
+
+<h1>{{ page.author.title }}</h1>
+<p>{{ page.author.dob }}</p>
+{% for book in page.author.book_set.all %}
+<img src="{{ MEDIA_URL }}{{ book.cover }}">
+{% endfor %}
+
+
+
+{{ block.super }}
+{% endblock %}

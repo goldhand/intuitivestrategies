@@ -1,0 +1,26 @@
+
+
+{% for post in page_contents %}
+
+        <div class='row' id='{{ post.slug }}' style='margin-bottom:20px;'>
+
+                <div class='span8'>
+
+                <h1>{{ post.title }}</h1>
+
+                </div>
+
+                <div class='span8'>
+
+                {% if post.image %}
+                <img class="span3 pull-left" src="/-media/{{ post.image }}"/>
+                {% endif %}
+
+                {{ post.body|safe|linebreaks }}
+
+                </div>
+
+        </div>
+
+{% endfor %}
+

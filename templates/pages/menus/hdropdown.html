@@ -1,0 +1,42 @@
+{% load i18n pages_tags %}
+{% spaceless %}
+{% if page_branch_in_menu %}
+<div class="menu">
+{% if branch_level == 0 %}
+<ul>
+    {% for page in page_branch %}
+    {% if page.is_primary and forloop.first %}
+    <li class="{% if on_home %} current{% endif %}">
+        <a href="{% url home %}"><b>{% trans "Home" %}</b></a>
+    </li>
+    <li class="divider-vertical"></li>
+    {% endif %}
+    {% if page.in_menu %}
+    <li class="{% if page.is_current_or_ascendant %}current{% endif %}"
+        id="dropdown-menu-{{ page.html_id }}">
+        <a href="{{ page.get_absolute_url }}">
+            <b>{{ page.title }}</b>
+            {% if page.has_children %}<span class="caret"></span>{% endif %}
+        </a>
+        {% if page.has_children %}{% page_menu page %}{% endif %}
+    </li>
+    <li></li>
+    {% endif %}
+    {% endfor %}
+</ul>
+{% endif %}
+
+{% if branch_level == 1 %}
+<ul>
+    {% for page in page_branch %}
+    {% if page.in_menu %}
+    <li{% if page.is_current_or_ascendant %} class="current"{% endif %}>
+        <a href="{{ page.get_absolute_url }}"><b>{{ page.title }}</b></a>
+    </li>
+    {% endif %}
+    {% endfor %}
+</ul>
+{% endif %}
+
+{% endif %}
+{% endspaceless %}

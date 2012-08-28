@@ -1,0 +1,37 @@
+
+{% if page.slug == 'home' %}
+
+<div class='span3'>
+
+<h3>Featured Image</h3>
+
+<a href='/media/{{ fimage.id }}'><img src='/_media/{{ fimage.image }}' alt='{{ fimage.image_alt }}' /></a>
+
+<p class='label'>{{ fimage.title }}</p>
+
+</div>
+
+{% elif page.slug == 'media' %}
+
+<div class='span8 well-small'>
+
+	<div class='row'>
+
+		<div class='span3'>
+
+		<a href='/media/{{ fimage.id }}'><img src='/_media/{{ fimage.image }}' alt='{{ fimage.image_alt }}' /></a>
+
+		</div>
+
+		<div class='span4'>
+
+		<h2>{{ fimage.title }}</h2>
+		<p style='text-align:justify;'>{{ fimage.body|truncatewords:50 }}</p>
+
+		</div>
+
+	</div>
+
+</div>
+
+{% endif %}

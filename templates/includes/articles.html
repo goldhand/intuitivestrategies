@@ -1,0 +1,45 @@
+{% for article in articles %}
+
+<div class='span8'>
+
+<h2><a href="/blog/{{article.id}}">{{ article.title }}</a></h2>
+
+        <div class='pull-left'>
+<p>{{ article.created }}&nbsp</p>
+	</div>
+
+        <div class='pull-left'>
+	<a href='/blog/{{ article.id }}#comments'>
+		<div class="fb-comments-count pull-left" data-href="http:www.figtorials.com/blog/{{ article.id }}">0
+		</div>
+	&nbsp- comments</a>
+        </div>
+
+</div>
+
+<div class='span8'>
+<article>
+{% if article.image %}
+<img class="span3 pull-left" style='margin: 5px;' src="/_media/{{ article.image }}"/>
+{% endif %}
+
+{{ article.body|safe|linebreaks|truncatewords:150 }}
+</article>
+</div>
+
+<div class="span8">
+
+{% for tag in article.tags.all %}
+<a href="/tag/{{tag}}">{{tag}}</a>
+{% if not forloop.last %}, {% endif %}
+{% endfor %}
+
+<p class="pull-right">
+<a href='/news/{{ article.id }}' class='btn btn-info btn-small'>Read more &raquo;</a>
+</p>
+
+</div>
+
+{% endfor %}
+
+

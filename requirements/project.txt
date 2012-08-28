@@ -1,0 +1,28 @@
+Mezzanine==1.2.2
+
+
+
+
+
+#base.py
+
+{% block meta_keywords %}
+{% block meta_descruiption %}
+{% block meta_title %}
+{& url blog_post_feed "rss" %}
+{% url blog_post_feed "atom" %}
+{% block extra_css %}
+{% block extra_js %}
+{% block extra_head %}
+{% block body_id %}
+
+
+{% block left_panel %}, span2
+
+
+{% block main %}, span9
+
+
+{{ settings.SITE_TITLE }}
+
+
