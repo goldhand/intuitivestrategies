@@ -1,0 +1,23 @@
+{% load pages_tags %}
+
+<div class="span3">
+<dl>
+{% for page in page_branch %}
+{% if forloop.counter == 5 or foorloop.counter == 9 or page_branch|length <= 6 and forloop.counter == 3 %}
+</dl>
+</div>
+<div class="span3">
+<dl class="unstylized">
+{% endif %}
+	<dt><a href="{{ page.get_absolute_url }}"><em>
+	{% if page.tutorial.section_set.all %}
+	{{ page.tutorial.position }} 
+	{% endif %}
+	{{ page.tutorial.title }}
+	</em></a></dt>
+	<dd style="margin-bottom:20px;">
+	{{ page.tutorial.content|truncatewords:20 }}
+	</dd>
+{% endfor %}
+</dl>
+</div>

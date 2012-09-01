@@ -1,7 +1,21 @@
+ACCOUNT_URL = "account/"
+SIGNUP_URL = "signup/"
+SIGNUP_VERIFY_URL = "signup_verify/"
+LOGIN_URL = "login/"
+LOGOUT_URL = "logout/"
+PROFILE_URL = "userprofile/"
+PROFILE_UPDATE_URL ="userprofile_update/"
+PASSWORD_RESET_URL ="password_reset/"
+PASSWORD_RESET_VERIFY_URL = "password_reset_verify/"
 
 AUTH_PROFILE_MODULE = "userprofile.UserProfile"
-
-######################
+ACCOUNTS_PROFILE_FORM_EXCLUDE_FIELDS = (
+    "image",
+    "name",
+)
+###ACCOUNTS_VERIFICATION_REQUIRED = True
+#
+####################
 # MEZZANINE SETTINGS #
 ######################
 
@@ -37,11 +51,13 @@ AUTH_PROFILE_MODULE = "userprofile.UserProfile"
 # menus a page should appear in. Note that if a menu template is used
 # that doesn't appear in this setting, all pages will appear in it.
 
-# PAGE_MENU_TEMPLATES = (
-#     (1, "Top navigation bar", "pages/menus/dropdown.html"),
-#     (2, "Left-hand tree", "pages/menus/tree.html"),
-#     (3, "Footer", "pages/menus/footer.html"),
-# )
+PAGE_MENU_TEMPLATES = (
+    (1, "Top navigation bar", "pages/menus/dropdown.html"),
+    (2, "Left-hand tree", "pages/menus/tree.html"),
+    (3, "Footer", "pages/menus/footer.html"),
+    (4, "Tutorials", "pages/menus/tutorialmenu.html"),
+
+)
 
 # A sequence of fields that will be injected into Mezzanine's (or any
 # library's) models. Each item in the sequence is a four item sequence.
@@ -268,6 +284,9 @@ INSTALLED_APPS = (
     "apps.home",
     "apps.author",
     "apps.userprofile",
+    "apps.blankpage",
+    "apps.tutorial",
+#    "apps.filepage",
 )
 
 # List of processors used by RequestContext to populate the context.
@@ -363,6 +382,11 @@ try:
     from local_settings import *
 except ImportError:
     pass
+#try:
+#    from production_settings import *
+#except ImportError:
+#    pass
+
 
 
 ####################

@@ -1,5 +1,5 @@
 {% extends "pages/richtextpage.html" %}
-
+{% load pages_tags %}
 {% block main %}
 
 <h1>{{ page.author.title }}</h1>
@@ -7,6 +7,9 @@
 {% for book in page.author.book_set.all %}
 <img src="{{ MEDIA_URL }}{{ book.cover }}">
 {% endfor %}
+{% page_menu page "pages/menus/tutorialmenu.html" %}
+
+
 
 {% include "includes/carosel.html" %}
 

@@ -1,49 +1,54 @@
-
-<title>{% if page.title %}{{ page.title }}{% else %}IRAWCC{% endif %}</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="{% if page.description %}{{ page.description }}{% else %}IRAWCC{% endif %}">
-<meta name="author" content="{% if page.author %}{{ page.author }}{% else %}Will Farley{% endif %}">
-<meta itemprop="name" content="{% if page.title %}{{ page.title }}{% else %}IRAWCC{% endif %}">
-<meta itemprop="description" content="{% if page.description %}{{ page.description }}{% else %}IRAWCC{% endif %}">
-
-<link href="/static/css/bootstrap.css" type="text/css" rel="stylesheet">
-
-<style type="text/css">
-/*
-      body {
-        padding-bottom: 40px;
-      }
-      .sidebar-nav {
-        padding: 9px 0;
-      }
-*/
-{% if myproject.settings.DIV_WIRE %}
-div {
-border: 1px solid blue;
-
-margin: -2px;
-
-}
-div.row {
-border: 1px dashed red;
-}
-{% endif %}
-
-{% block style %}
-{% endblock %}
-
-</style>
+{% load pages_tags mezzanine_tags i18n %}
 
 
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width">
+<meta name="keywords" content="{% block meta_keywords %}{% endblock %}">
+<meta name="description" content="{% block meta_description %}{% endblock %}">
+<title>{% block meta_title %}{% endblock %}{% if settings.SITE_TITLE %} | {{ settings.SITE_TITLE }}{% endif %}</title>
+<link rel="shortcut icon" href="{{ STATIC_URL }}img/favicon.ico">
 
-<link href="/static/css/bootstrap-responsive.css" type="text/css" rel="stylesheet">
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-<link rel="shortcut icon" href="../static/img/ico/favicon.ico">
-<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../../assets/ico/apple-touch-icon-144-precomposed.png">
-<link rel="apple-touch-icon-precomposed" sizes="114x114" href="../../assets/ico/apple-touch-icon-114-precomposed.png">
-<link rel="apple-touch-icon-precomposed" sizes="72x72" href="../../assets/ico/apple-touch-icon-72-precomposed.png">
-<link rel="apple-touch-icon-precomposed" href="../../assets/ico/apple-touch-icon-57-precomposed.png">
+{% ifinstalled mezzanine.blog %}
+<link rel="alternate" type="application/rss+xml" title="RSS" href="{% url blog_post_feed "rss" %}">
+<link rel="alternate" type="application/atom+xml" title="Atom" href="{% url blog_post_feed "atom" %}">
+{% endifinstalled %}
+<link href='http://fonts.googleapis.com/css?family=Alfa+Slab+One|Dosis' rel='stylesheet' type='text/css'>
+
+<!--GOOGLE FONTS-->
+<link href='http://fonts.googleapis.com/css?family=Alfa+Slab+One|Dosis' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Headland+One|Racing+Sans+One|Quattrocento' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Viga|Stoke|Patua+One|Medula+One|Stint+Ultra+Expanded|Capriola|Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+
+
+{% compress css %}
+<link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.css">
+<link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.responsive.css">
+<link rel="stylesheet" href="{{ STATIC_URL }}css/mezzanine.css">
+{% ifinstalled cartridge.shop %}
+<link rel="stylesheet" href="{{ STATIC_URL }}css/cartridge.css">
+{% endifinstalled %}
+<link href="{{ STATIC_URL }}css/facebook.css" type="text/css" rel="stylesheet" media="all" />
+
+<link rel="stylesheet" href="{{ STATIC_URL }}css/usersheet.css">
+{% block extra_css %}{% endblock %}
+{% endcompress %}
+
+{% compress js %}
+<script src="{{ STATIC_URL }}mezzanine/js/{{ settings.JQUERY_FILENAME }}"></script>
+<script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+<script>
+$(function() {
+    $('.middleinput:text, textarea').addClass('xlarge');
+    $('.control-group label').addClass('control-label');
+});
+</script>
+{% include 'django_facebook/_facebook_js.html' %}
+{% block extra_js %}{% endblock %}
+{% endcompress %}
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+{% block extra_head %}{% endblock %}
 
 

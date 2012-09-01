@@ -33,6 +33,10 @@
         
 {% for image in page.author.caroselimage_set.all %}
 
+cd temp	
+l:x
+exit
+
 <li>
 <a class="thumbnail" data-toggle="modal" href="#{{ image.slug }}">
 <img src="{{ MEDIA_URL }}{{ image.thumbnail }}" />

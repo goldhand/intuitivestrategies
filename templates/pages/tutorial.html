@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load pages_tags %}
+
+{% block title %}
+<h1>
+{% if page.tutorial.section_set.all %}
+{{ page.parent.title }}
+{% else %}
+{{ page.title }}
+{% endif %}
+</h1>
+{% endblock %}
+
+{% block left_panel_size %}3{% endblock %}
+{% block left_panel %}
+<div class="panel tree">
+{% page_menu "pages/menus/tutorialmenu.html" %}
+</div>
+{% endblock %}
+{% block center_panel_size %}9{% endblock %}
+{% block main %}
+
+
+<h1>
+{% if page.tutorial.section_set.all %}
+{{ page.tutorial.position }} 
+{% endif %}
+{{ page.tutorial.title }}
+</h1>
+
+<div class="row">
+{% page_menu page "pages/menus/tutorialindexmenu.html" %}
+
+</div>
+<p>{{ page.tutorial.content }}</p>
+{% for section in page.tutorial.section_set.all %}
+<h2 id="section{{ section.position }}">{{ page.tutorial.position }}.{{ section.position }} {{ section.title }}</h2>
+<p>{{ section.content }}</p>
+{% endfor %}
+
+
+{{ block.super }}
+{% endblock %}
+

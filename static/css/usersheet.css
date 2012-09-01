@@ -32,11 +32,6 @@ a {
 color: #934949;
 
 }
-
-.topbar {
-background-color:#07233d;
-}
-
 a:hover {
 color: #86dbef;
 text-decoration: none;
@@ -59,7 +54,7 @@ background-color: transparent;
 
 body {
 color: #00385c;
-background-image: url('../img/bg_blue.gif');
+//background-image: url('../img/bg_blue.gif');
 }
 
 .panel {
@@ -87,17 +82,22 @@ border-radius: 4px;
 
 h1 {
 letter-spacing: 2px;
-font-family: 'Viga', sans-serif;
-font-family: 'Headland One', serif;
 color: #356c9e;
 font-size: 3.2em;
-margin-bottom: 18px;
+line-height: 1.3em;
+font-family: 'Stoke', serif;
 }
+
+
 h2 {
 letter-spacing: 2.5px;
-font-family: 'Alfa Slab One', cursive;
 color: #ed3719;
 font-size: 2.3em;
+font-family: 'Headland One', serif;
+
+
+
+
 }
 
 h3 {
@@ -105,6 +105,7 @@ letter-spacing: 2px;
 font-family: 'Dosis', sans-serif;
 color: #4b2b23;
 font-size: 1.8em;
+
 }
 
 p {
@@ -120,6 +121,13 @@ letter-spacing: 2px;
 }
 
 
+.topbar {
+margin-top: -18px;
+margin-bottom: 20px;
+background-color:#07233d;
+height: 180px;
+border-bottom: 3px solid #666 
+}
 
 .topbar div.container img {
 z-index:3000;
@@ -127,7 +135,8 @@ z-index:3000;
 
 .topbar div.container {
 background-image: url('../img/intuitive_strategies_no_background.png');
-height: 200px;
+height: 120px;
+padding-top: 180px;
 background-repeat: no-repeat;
 width:940px;
 }
@@ -136,6 +145,25 @@ width:940px;
 background-color: transparent;
 border: none;*/
 }
+div.transbox
+  {
+background-color:#ffffff;
+opacity:0.6;
+filter:alpha(opacity=60); /* For IE8 and earlier */
+
+margin-top: -23px;
+height: 110px;
+}
+
+div.body_head {
+position: relative;
+top: -70px;
+}
+
+.breadcrumb {
+margin: 10px;
+}
+
 footer {
 background-color: #e2e2e2;
 margin-top: 50px;
@@ -176,11 +204,16 @@ margin: 0 10px 2px 0;
 
 .userprofile p, .userprofile ul {
 font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+font-family: 'Quattrocento', serif;
 color: #666;
 letter-spacing: 1px;
 font-size: 13px;
 }
-
+.userprofile ul {
+font-size: 15px;
+font-weight: bold;
+line-spacing: 1.2em;
+}
 
 /* horizontal nav bar */
 
