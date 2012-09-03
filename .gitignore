@@ -1,3 +1,11 @@
+static/grappelli/*
+static/mezzanine/*
+static/filebrowser/*
+test/*
+rhl/*
+static/media/*
+static/mezzanine/*
+
 *.pyc
 *.pyo
 *.db
