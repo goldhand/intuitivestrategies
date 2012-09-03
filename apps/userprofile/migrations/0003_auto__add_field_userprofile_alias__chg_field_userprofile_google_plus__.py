@@ -8,23 +8,28 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'UserProfile'
-        db.create_table('userprofile_userprofile', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=100)),
-            ('user_image', self.gf('imagekit.models.fields.ProcessedImageField')(max_length=100)),
-            ('facebook', self.gf('django.db.models.fields.URLField')(max_length=100, null=True, blank=True)),
-            ('twitter', self.gf('django.db.models.fields.CharField')(max_length=50, null=True, blank=True)),
-            ('google_plus', self.gf('django.db.models.fields.URLField')(default='plus.google.com/*', max_length=100, null=True, blank=True)),
-        ))
-        db.send_create_signal('userprofile', ['UserProfile'])
+        # Adding field 'UserProfile.alias'
+        db.add_column('userprofile_userprofile', 'alias',
+                      self.gf('django.db.models.fields.CharField')(default='NA', max_length=100),
+                      keep_default=False)
 
+
+        # Changing field 'UserProfile.google_plus'
+        db.alter_column('userprofile_userprofile', 'google_plus', self.gf('django.db.models.fields.CharField')(max_length=100, null=True))
+
+        # Changing field 'UserProfile.facebook'
+        db.alter_column('userprofile_userprofile', 'facebook', self.gf('django.db.models.fields.CharField')(max_length=100, null=True))
 
     def backwards(self, orm):
-        # Deleting model 'UserProfile'
-        db.delete_table('userprofile_userprofile')
+        # Deleting field 'UserProfile.alias'
+        db.delete_column('userprofile_userprofile', 'alias')
 
+
+        # Changing field 'UserProfile.google_plus'
+        db.alter_column('userprofile_userprofile', 'google_plus', self.gf('django.db.models.fields.URLField')(max_length=100, null=True))
+
+        # Changing field 'UserProfile.facebook'
+        db.alter_column('userprofile_userprofile', 'facebook', self.gf('django.db.models.fields.URLField')(max_length=100, null=True))
 
     models = {
         'auth.group': {
@@ -65,13 +70,15 @@ class Migration(SchemaMigration):
         },
         'userprofile.userprofile': {
             'Meta': {'object_name': 'UserProfile'},
-            'facebook': ('django.db.models.fields.URLField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
-            'google_plus': ('django.db.models.fields.URLField', [], {'default': "'plus.google.com/*'", 'max_length': '100', 'null': 'True', 'blank': 'True'}),
+            'about_me': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
+            'alias': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
+            'facebook': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
+            'google_plus': ('django.db.models.fields.CharField', [], {'default': "'plus.google.com/*'", 'max_length': '100', 'null': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
+            'tagline': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
             'twitter': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True', 'blank': 'True'}),
-            'user': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['auth.User']", 'unique': 'True'}),
-            'user_image': ('imagekit.models.fields.ProcessedImageField', [], {'max_length': '100'})
+            'user': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['auth.User']", 'unique': 'True', 'null': 'True'}),
+            'user_image': ('django.db.models.fields.files.ImageField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'})
         }
     }
 

@@ -1,5 +1,6 @@
 {% extends "layouts/blog_layout.html" %}
 {% load i18n mezzanine_tags blog_tags keyword_tags disqus_tags %}
+{% load responsive_tags %}
 
 {% block center %}
 
@@ -34,25 +35,23 @@
 
 {% for blog_post in blog_posts.object_list %}
 {% editable blog_post.title blog_post.publish_date %}
-<h2>
+<h2 class="userprofile">
     <a href="{{ blog_post.get_absolute_url }}">{{ blog_post.title }}</a>
 </h2>
-<h6>
-
 
     {% with blog_post.user as author %}
 
-    <a href="{% url blog_post_list_author author %}"><img class="pull-left userprofile" src="{{ MEDIA_URL }}{{ author.userprofile.thumbnail }}" /></a>
+    <a href="{% url blog_post_list_author author %}"><img class="pull-left thumbdetails" src="{{ author.userprofile.thumbnail.url }}" /></a>
     
-    <a href="{% url blog_post_list_author author %}">{{ author.get_full_name|default:author.username }}</a>
+    <a class="thumb_details" href="{% url blog_post_list_author author %}">{{ author.get_full_name|default:author.username }}</a>
     {% endwith %}<br/>
     {% if blog_post.category_list %}
     {% trans "in" %}
     {% for category in blog_post.category_list %}
-    <a href="{% url blog_post_list_category category.slug %}">{{ category }}</a><br/>
+    <a class="thumb_details" href="{% url blog_post_list_category category.slug %}">{{ category }} /</a>
     {% endfor %}
     {% endif %}
-    {{ blog_post.publish_date|timesince }} {% trans "ago" %}
+    </br>{{ blog_post.publish_date|timesince }} {% trans "ago" %}
 </h6>
 {% endeditable %}
 <div class="row"></div>
@@ -102,22 +101,7 @@
 
 {% if author %}
 <div class="span4">
-<div class="userprofile">
-<h3>{{ author.userprofile.name }}</h4>
-<h4>{% for group in author.groups.all %}{{ group|upper }}{% if not forloop.last %}, {% endif %}{% endfor %}</h4>
-<img class="pull-left" src="{{ MEDIA_URL }}{{ author.userprofile.image }}" />
-<ul class="unstyled">
-<li>Title:</li>
-<li>Email: {{ author.email }}
-<li>Member Since: {{ author.date_joined }}</li>
-</ul>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus, massa vel blandit gravida, dolor est interdum lorem, hendrerit porttitor tellus sapien fringilla ante. Nam eget volutpat velit. Vivamus id ante eget nunc ornare iaculis ut eu tortor. Curabitur ornare eros pharetra turpis ullamcorper nec ornare eros consectetur. Suspendisse sapien est, venenatis at ornare non, mollis nec nunc. Vivamus at condimentum mauris. Nam aliquet dui congue odio posuere sed bibendum diam accumsan. Proin at velit neque, vel vestibulum felis. Suspendisse vehicula tempor fringilla. Fusce malesuada consequat leo ut auctor.</p>
-<h3>Recent Posts by {{ author.userprofile.name }}</h3>
-<ul class="unstyled">
-{% for blog_post in author.blogposts.all %}
-<li><a href="{{ blog_post.get_absolute_url }}">{{ blog_post.title }}</a></li>
-{% endfor %}
-</ul>
+{% include "blog/includes/blog_profile.html" %}
 </div>
 {% else %}
 <div class="span2">

@@ -10,7 +10,14 @@ PASSWORD_RESET_VERIFY_URL = "password_reset_verify/"
 
 AUTH_PROFILE_MODULE = "userprofile.UserProfile"
 ACCOUNTS_PROFILE_FORM_EXCLUDE_FIELDS = (
-    "image",
+    "limage",
+    "dimage",
+    "timage",
+    "tagline",
+    "about_me",
+    "facebook",
+    "twitter",
+    "google_plus",
     "name",
 )
 ###ACCOUNTS_VERIFICATION_REQUIRED = True
@@ -239,6 +246,7 @@ MEDIA_URL = STATIC_URL + "media/"
 # Example: "/home/media/media.lawrence.com/media/"
 MEDIA_ROOT = os.path.join(PROJECT_ROOT, *MEDIA_URL.strip("/").split("/"))
 
+
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
@@ -277,7 +285,7 @@ INSTALLED_APPS = (
     "mezzanine.galleries",
     "mezzanine.twitter",
     "mezzanine.accounts",
-    #"mezzanine.mobile",
+    "mezzanine.mobile",
     "taggit",
     "apps.carosel",
     "imagekit",

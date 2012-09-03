@@ -8,23 +8,44 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'UserProfile'
-        db.create_table('userprofile_userprofile', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=100)),
-            ('user_image', self.gf('imagekit.models.fields.ProcessedImageField')(max_length=100)),
-            ('facebook', self.gf('django.db.models.fields.URLField')(max_length=100, null=True, blank=True)),
-            ('twitter', self.gf('django.db.models.fields.CharField')(max_length=50, null=True, blank=True)),
-            ('google_plus', self.gf('django.db.models.fields.URLField')(default='plus.google.com/*', max_length=100, null=True, blank=True)),
-        ))
-        db.send_create_signal('userprofile', ['UserProfile'])
+        # Deleting field 'UserProfile.name'
+        db.delete_column('userprofile_userprofile', 'name')
 
+        # Adding field 'UserProfile.tagline'
+        db.add_column('userprofile_userprofile', 'tagline',
+                      self.gf('django.db.models.fields.CharField')(max_length=100, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'UserProfile.about_me'
+        db.add_column('userprofile_userprofile', 'about_me',
+                      self.gf('django.db.models.fields.TextField')(null=True, blank=True),
+                      keep_default=False)
+
+
+        # Changing field 'UserProfile.user_image'
+        db.alter_column('userprofile_userprofile', 'user_image', self.gf('django.db.models.fields.files.ImageField')(max_length=100, null=True))
+
+        # Changing field 'UserProfile.user'
+        db.alter_column('userprofile_userprofile', 'user_id', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True, null=True))
 
     def backwards(self, orm):
-        # Deleting model 'UserProfile'
-        db.delete_table('userprofile_userprofile')
+        # Adding field 'UserProfile.name'
+        db.add_column('userprofile_userprofile', 'name',
+                      self.gf('django.db.models.fields.CharField')(default='joe', max_length=100),
+                      keep_default=False)
 
+        # Deleting field 'UserProfile.tagline'
+        db.delete_column('userprofile_userprofile', 'tagline')
+
+        # Deleting field 'UserProfile.about_me'
+        db.delete_column('userprofile_userprofile', 'about_me')
+
+
+        # Changing field 'UserProfile.user_image'
+        db.alter_column('userprofile_userprofile', 'user_image', self.gf('imagekit.models.fields.ProcessedImageField')(default='default.gif', max_length=100))
+
+        # Changing field 'UserProfile.user'
+        db.alter_column('userprofile_userprofile', 'user_id', self.gf('django.db.models.fields.related.OneToOneField')(default='admin', to=orm['auth.User'], unique=True))
 
     models = {
         'auth.group': {
@@ -65,13 +86,14 @@ class Migration(SchemaMigration):
         },
         'userprofile.userprofile': {
             'Meta': {'object_name': 'UserProfile'},
+            'about_me': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
             'facebook': ('django.db.models.fields.URLField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
             'google_plus': ('django.db.models.fields.URLField', [], {'default': "'plus.google.com/*'", 'max_length': '100', 'null': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
+            'tagline': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
             'twitter': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True', 'blank': 'True'}),
-            'user': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['auth.User']", 'unique': 'True'}),
-            'user_image': ('imagekit.models.fields.ProcessedImageField', [], {'max_length': '100'})
+            'user': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['auth.User']", 'unique': 'True', 'null': 'True'}),
+            'user_image': ('django.db.models.fields.files.ImageField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'})
         }
     }
 

@@ -27,7 +27,7 @@
 {% ifinstalled cartridge.shop %}
 <link rel="stylesheet" href="{{ STATIC_URL }}css/cartridge.css">
 {% endifinstalled %}
-<link href="{{ STATIC_URL }}css/facebook.css" type="text/css" rel="stylesheet" media="all" />
+<!--<link href="{{ STATIC_URL }}css/facebook.css" type="text/css" rel="stylesheet" media="all" />-->
 
 <link rel="stylesheet" href="{{ STATIC_URL }}css/usersheet.css">
 {% block extra_css %}{% endblock %}
@@ -36,13 +36,16 @@
 {% compress js %}
 <script src="{{ STATIC_URL }}mezzanine/js/{{ settings.JQUERY_FILENAME }}"></script>
 <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+
 <script>
 $(function() {
     $('.middleinput:text, textarea').addClass('xlarge');
     $('.control-group label').addClass('control-label');
 });
 </script>
-{% include 'django_facebook/_facebook_js.html' %}
+
+{# {% include 'django_facebook/_facebook_js.html' %} #}
+
 {% block extra_js %}{% endblock %}
 {% endcompress %}
 <!--[if lt IE 9]>

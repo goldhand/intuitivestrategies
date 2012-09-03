@@ -1,0 +1,72 @@
+
+.smm_icons a{
+background-color: transparent;
+background-image: url("../img/smm.png");
+display: block;
+height: 40px;
+width: 40px;
+margin-top: 5px;
+}
+
+div.smm_icons{
+width: 40px;
+display:block;
+margin-right: -10px;
+}
+
+.smm_icons a:visited {}
+.smm_icons a:link {}
+.smm_icons a:hover {
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
+border-radius: 4px;
+-webkit-box-shadow: inset 4px 4px 4px #ccc;
+-moz-box-shadow: inset 4px 4px 4px #ccc;
+box-shadow: inset 4px 4px 4px #ccc;
+}
+
+.smm_icons a.facebook {
+background-position: 0 0;
+}
+
+.smm_icons a.facebook:hover {
+background-position: 0 100%;
+}
+
+.smm_icons a.twitter {
+background-position: 160px 0;
+}
+
+.smm_icons a.twitter:hover {
+background-position: 160px 100%;
+}
+
+.smm_icons a.googleplus {
+background-position: 120px 0;
+
+}
+
+.smm_icons a.googleplus:hover {
+background-position: 120px 100%;
+}
+
+.smm_icons a.linkedin {
+background-position: 80px 0;
+
+}
+
+.smm_icons a.linkedin:hover {
+background-position: 80px 100%;
+}
+
+.smm_icons a.youtube {
+background-position: 40px 0;
+
+}
+
+.smm_icons a.youtube:hover {
+background-position: 40px 100%;
+}
+
+
+

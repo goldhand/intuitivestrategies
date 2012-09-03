@@ -70,7 +70,7 @@ urlpatterns = patterns("",
     # from it, and use them directly below instead of using
     # ``mezzanine.urls``.
 
-    (r'^facebook/', include('django_facebook.urls')),
+#    (r'^facebook/', include('django_facebook.urls')),
 
     ("^", include("mezzanine.urls")),
 

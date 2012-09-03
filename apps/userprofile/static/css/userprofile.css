@@ -1,0 +1,130 @@
+.hidden-largedesktop {
+  display: none !important;
+}
+.visible-largedesktop {
+  display: inherit !imporrant;
+}
+.hidden-desktop {
+  display: inherit !important;
+}
+
+.visible-desktop {
+  display: none !important;
+}
+
+@media (min-width: 768px) and (max-width: 979px) {
+  .hidden-largedesktop {
+    display: inherit !important;
+  }
+  .visible-largedesktop {
+    display: none !important ;
+  }
+}
+
+
+@media (max-width: 767px) {
+  .hidden-largedesktop {
+    display: inherit !important;
+  }
+  .visible-largedesktop {
+    display: none !important;
+  }
+}
+
+@media (min-width: 980px) and (max-width: 1159px) {
+  .hidden-largedesktop {
+    display: inherit !important;
+  }
+  .visible-largedesktop {
+    display: none !important ;
+  }
+  .hidden-desktop {
+    display: none !important;
+  }
+  .visible-desktop {
+    display: inherit !important;
+  }
+}
+
+
+
+
+@media (min-width: 1200px) {
+  .hidden-largedesktop {
+    display: none !important;
+  }
+  .visible-largedesktop {
+    display: inherit !important;
+  }
+  .visible-desktop {
+    display: none !important;
+  }
+}
+
+
+img.userprofile{
+margin: 5px 0 2px 0;
+
+}
+/*
+div.userprofile {
+padding: 10px;
+background-color: #FBFBFB;
+background-image: -moz-linear-gradient(top, white, whiteSmoke);
+background-image: -ms-linear-gradient(top, white, whiteSmoke);
+background-image: -webkit-gradient(linear, 0 0, 0 100%, from(white), to(whiteSmoke));
+background-image: -webkit-linear-gradient(top, white, whiteSmoke);
+background-image: -o-linear-gradient(top, white, whiteSmoke);
+background-image: linear-gradient(top, white, whiteSmoke);
+background-repeat: repeat-x;
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f5f5f5', GradientType=0);
+-webkit-border-radius: 3px;
+-moz-border-radius: 3px;
+border-radius: 3px;
+-webkit-box-shadow: inset 0 1px 0 white;
+-moz-box-shadow: inset 0 1px 0 #ffffff;
+box-shadow: inset 0 1px 0 white;
+
+}
+*/
+h2.userprofile {
+margin-bottom: 15px;
+}
+
+.userprofile h3 {
+}
+
+.userprofile h4 {
+font-family: 'Dosis';
+color: #4B2B23;
+margin-left: 20px;
+}
+
+.userprofile p, .userprofile ul {
+font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+font-family: 'Quattrocento', serif;
+color: #666;
+letter-spacing: 1px;
+font-size: 13px;
+}
+.userprofile ul {
+font-size: 15px;
+font-weight: bold;
+line-spacing: 1.2em;
+}
+
+
+.userprofile .tagline {
+text-align: left;
+text-indent: 20px;
+margin-right: 15px;
+
+}
+
+a.thumb_details {
+color: #08C;
+margin-top: 10px;
+}
+
+.userrecentposts {
+width: 

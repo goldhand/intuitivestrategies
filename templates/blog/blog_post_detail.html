@@ -76,26 +76,12 @@
 {% endblock %}
 
 {% block right_panel %}
-<div class="span4">
-<div class="userprofile">
 {% with blog_post.user as author %}
-<h3>{{ author.userprofile.name }}</h4>
-<h4>{% for group in author.groups.all %}{{ group|upper }}{% if not forloop.last %}, {% endif %}{% endfor %}</h4>
-<img class="pull-left" src="{{ MEDIA_URL }}{{ author.userprofile.image }}" />
-<ul class="unstyled">
-<li>Title:</li>
-<li>Email: {{ author.email }}
-<li>Member Since: {{ author.date_joined }}</li>
-</ul>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus, massa vel blandit gravida, dolor est interdum lorem, hendrerit porttitor tellus sapien fringilla ante. Nam eget volutpat velit. Vivamus id ante eget nunc ornare iaculis ut eu tortor. Curabitur ornare eros pharetra turpis ullamcorper nec ornare eros consectetur. Suspendisse sapien est, venenatis at ornare non, mollis nec nunc. Vivamus at condimentum mauris. Nam aliquet dui congue odio posuere sed bibendum diam accumsan. Proin at velit neque, vel vestibulum felis. Suspendisse vehicula tempor fringilla. Fusce malesuada consequat leo ut auctor.</p>
-<h3>Recent Posts by {{ author.userprofile.name }}</h3>
-<ul class="unstyled">
-{% for blog_post in author.blogposts.all %}
-<li><a href="{{ blog_post.get_absolute_url }}">{{ blog_post.title }}</a></li>
-{% endfor %}
-</ul>
-</div>
+
+<div class="span4">
+
+{% include "blog/includes/blog_profile.html" %}
+
 </div>
 {% endwith %}
-
 {% endblock %}

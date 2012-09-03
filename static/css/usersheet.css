@@ -170,54 +170,6 @@ margin-top: 50px;
 border-top: 1px solid #EEE;
 }
 
-/*User Profiles */
-/* sidebar */
-.userprofile img{
-margin: 5px 5px 2px 0;
-
-}
-div.userprofile {
-padding: 10px;
-background-color: #FBFBFB;
-background-image: -moz-linear-gradient(top, white, whiteSmoke);
-background-image: -ms-linear-gradient(top, white, whiteSmoke);
-background-image: -webkit-gradient(linear, 0 0, 0 100%, from(white), to(whiteSmoke));
-background-image: -webkit-linear-gradient(top, white, whiteSmoke);
-background-image: -o-linear-gradient(top, white, whiteSmoke);
-background-image: linear-gradient(top, white, whiteSmoke);
-background-repeat: repeat-x;
-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f5f5f5', GradientType=0);
--webkit-border-radius: 3px;
--moz-border-radius: 3px;
-border-radius: 3px;
--webkit-box-shadow: inset 0 1px 0 white;
--moz-box-shadow: inset 0 1px 0 #ffffff;
-box-shadow: inset 0 1px 0 white;
-}
-
-img.userprofile {
-margin: 0 10px 2px 0;
-}
-
-.userprofile h3 {
-}
-
-.userprofile p, .userprofile ul {
-font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-font-family: 'Quattrocento', serif;
-color: #666;
-letter-spacing: 1px;
-font-size: 13px;
-}
-.userprofile ul {
-font-size: 15px;
-font-weight: bold;
-line-spacing: 1.2em;
-}
-
-/* horizontal nav bar */
-
-
 
 
 
