@@ -1,12 +1,13 @@
 from copy import deepcopy
 from django.contrib import admin
+from mezzanine.core.admin import TabularDynamicInlineAdmin
 from mezzanine.pages.admin import PageAdmin
 from .models import *
 
 
 tutorial_extra_fieldsets = ((None, {"fields": ("categories", "allow_comments", "position", "image", "content",)}),)
 
-class SectionInline(admin.TabularInline):
+class SectionInline(TabularDynamicInlineAdmin):
 	model = Section
 
 class TutorialAdmin(PageAdmin):

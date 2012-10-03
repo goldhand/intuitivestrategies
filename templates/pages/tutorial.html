@@ -11,10 +11,12 @@
 </h1>
 {% endblock %}
 
-{% block left_panel_size %}3{% endblock %}
+
 {% block left_panel %}
+<div class="span3 left">
 <div class="panel tree">
 {% page_menu "pages/menus/tutorialmenu.html" %}
+</div>
 </div>
 {% endblock %}
 {% block center_panel_size %}9{% endblock %}
@@ -22,9 +24,7 @@
 
 
 <h1>
-{% if page.tutorial.section_set.all %}
-{{ page.tutorial.position }} 
-{% endif %}
+{% if page.parent.parent.parent.parent %}{{ page.parent.parent.tutorial.position}}.{{ page.parent.tutorial.position }}{% elif page.parent.parent.parent %}{{ page.parent.tutorial.position}}.{% endif %}{{ page.tutorial.position }} 
 {{ page.tutorial.title }}
 </h1>
 
@@ -34,7 +34,10 @@
 </div>
 <p>{{ page.tutorial.content }}</p>
 {% for section in page.tutorial.section_set.all %}
-<h2 id="section{{ section.position }}">{{ page.tutorial.position }}.{{ section.position }} {{ section.title }}</h2>
+<h2 id="section{{ section.position }}">
+{% if page.parent.parent.parent.parent %}{{ page.parent.parent.tutorial.position}}.{{ page.parent.tutorial.position }}
+{% elif page.parent.parent.parent %}{{ page.parent.tutorial.position}}.{% endif %}{{ page.tutorial.position }}{{ section.position }} {{ section.title }}</h2>
+
 <p>{{ section.content }}</p>
 {% endfor %}
 

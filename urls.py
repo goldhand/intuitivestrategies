@@ -13,6 +13,8 @@ admin.autodiscover()
 
 urlpatterns = patterns("",
 
+    ("^dev/", include("apps.dev.urls")),
+    ("^formwiz/", include("apps.userprofile.urls")),
     #url(r"^$", include("apps.home.urls")),
     # Change the admin prefix here to use an alternate URL for the
     # admin interface, which would be marginally more secure.
@@ -46,7 +48,7 @@ urlpatterns = patterns("",
     # template "pages/index.html" can be used.
 
     #url("^$", include("apps.home.urls")),
-    #url("^$", "mezzanine.pages.views.page", {"slug": "/"}, name="home"),
+    url("^$", "mezzanine.pages.views.page", {"slug": "/"}, name="home"),
 
     # HOMEPAGE FOR A BLOG-ONLY SITE
     # -----------------------------

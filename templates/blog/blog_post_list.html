@@ -4,11 +4,7 @@
 
 {% block center %}
 
-{% if author %}
-<div class="span6">
-{% else %}
 <div class="span8">
-{% endif %}
 
 {% if tag or category or year or month or author %}
     <p>
@@ -35,24 +31,15 @@
 
 {% for blog_post in blog_posts.object_list %}
 {% editable blog_post.title blog_post.publish_date %}
+
+<p><em>
+{{ blog_post.publish_date|timesince }} {% trans "ago" %}
+</em><p>
+
 <h2 class="userprofile">
     <a href="{{ blog_post.get_absolute_url }}">{{ blog_post.title }}</a>
 </h2>
 
-    {% with blog_post.user as author %}
-
-    <a href="{% url blog_post_list_author author %}"><img class="pull-left thumbdetails" src="{{ author.userprofile.thumbnail.url }}" /></a>
-    
-    <a class="thumb_details" href="{% url blog_post_list_author author %}">{{ author.get_full_name|default:author.username }}</a>
-    {% endwith %}<br/>
-    {% if blog_post.category_list %}
-    {% trans "in" %}
-    {% for category in blog_post.category_list %}
-    <a class="thumb_details" href="{% url blog_post_list_category category.slug %}">{{ category }} /</a>
-    {% endfor %}
-    {% endif %}
-    </br>{{ blog_post.publish_date|timesince }} {% trans "ago" %}
-</h6>
 {% endeditable %}
 <div class="row"></div>
 {% if blog_post.featured_image %}
@@ -63,7 +50,8 @@
 {{ blog_post.description_from_content|safe }}
 {% endeditable %}
 
-<p class="blog-list-detail">
+
+<p>
     {% if blog_post.keyword_list %}
     {% trans "Tags" %}:
     {% spaceless %}
@@ -86,6 +74,16 @@
     </a>
     {% endif %}
 </p>
+
+<div class = "blog-list-detail row">
+<div class="span5">
+{% include "blog/includes/blog_profile_simple.html" %}
+</div>
+<div class="span3">
+{% include "includes/sm_icons.html" %}
+</div>
+</div>
+
 {% endfor %}
 
 {% pagination_for blog_posts %}
@@ -96,19 +94,25 @@
 </div>
 
 {% endblock %}
-{% block right_panel %}
 
+
+{% block right_panel %}
 
 {% if author %}
 <div class="span4">
 {% include "blog/includes/blog_profile.html" %}
 </div>
-{% else %}
-<div class="span2">
-{% include "blog/includes/filter_panel.html" %}
 {% endif %}
+
+<div class="span4 right_menu1">
+{% include "blog/includes/filter_panel.html" %}
 </div>
-</div>
+
+
+
+{{ block.super }}
+
+
 {% endblock %}
 
 

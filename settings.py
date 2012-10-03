@@ -8,18 +8,13 @@ PROFILE_UPDATE_URL ="userprofile_update/"
 PASSWORD_RESET_URL ="password_reset/"
 PASSWORD_RESET_VERIFY_URL = "password_reset_verify/"
 
-AUTH_PROFILE_MODULE = "userprofile.UserProfile"
+#AUTH_PROFILE_MODULE = "userprofile.UserProfile"
 ACCOUNTS_PROFILE_FORM_EXCLUDE_FIELDS = (
     "limage",
     "dimage",
     "timage",
-    "tagline",
-    "about_me",
-    "facebook",
-    "twitter",
-    "google_plus",
-    "name",
 )
+ACCOUNTS_PROFILE_VIEWS_ENABLED = True
 ###ACCOUNTS_VERIFICATION_REQUIRED = True
 #
 ####################
@@ -294,7 +289,11 @@ INSTALLED_APPS = (
     "apps.userprofile",
     "apps.blankpage",
     "apps.tutorial",
+#    "lib.abstract",
+#    "apps.videogalleries"
 #    "apps.filepage",
+#    "apps.dev",
+
 )
 
 # List of processors used by RequestContext to populate the context.

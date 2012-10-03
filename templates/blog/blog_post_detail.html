@@ -21,29 +21,35 @@
 <li class="active">{{ blog_post.title }}</li>
 {% endblock %}
 
+{% block left_panel %}
+
+{% endblock %}
+
+{% block center_panel_size %}12{% endblock %}
+
 {% block center %}
-<div class="span6">
-<h6>
-   {% with blog_post.user as author %}
+<div class="span8">
 
-    <a href="{% url blog_post_list_author author %}"><img class="pull-left userprofile" src="{{ MEDIA_URL }}{{ author.userprofile.thumbnail }}" /></a>
-    
-    <a href="{% url blog_post_list_author author %}">{{ author.get_full_name|default:author.username }}</a>
-    {% endwith %}<br/>
-    {% if blog_post.category_list %}
-    {% trans "in" %}
-    {% for category in blog_post.category_list %}
-    <a href="{% url blog_post_list_category category.slug %}">{{ category }}</a><br/>
-    {% endfor %}
-    {% endif %}
-    {{ blog_post.publish_date|timesince }} {% trans "ago" %}
+{% include "blog/includes/blog_profile_simple_detail.html" %}
 
-</h6>
-<p>
-    {% if blog_post.allow_comments %}(<a href="#comments">{% spaceless %}
-        {% blocktrans count blog_post.comments_count as comments_count %}1 comment{% plural %}{{ comments_count }} comments{% endblocktrans %}
-    {% endspaceless %}</a>){% endif %}
-</p>
+<h1>
+{{ blog_post.title }}
+</h1>
+
+<div class="row">
+
+<div class="span5">
+<p><em>
+{{ blog_post.publish_date|date:"d/m/Y @ g:iA" }}
+</em><p>
+</div>
+
+<div class="span3">
+{% include "includes/sm_icons.html" %}
+</div>
+
+</div>
+
 
 {% if blog_post.featured_image %}
 <p><img src="{{ MEDIA_URL }}{% thumbnail blog_post.featured_image 600 0 %}"></p>
@@ -76,12 +82,20 @@
 {% endblock %}
 
 {% block right_panel %}
+
+
+
 {% with blog_post.user as author %}
 
-<div class="span4">
-
-{% include "blog/includes/blog_profile.html" %}
-
+<div class="span4 right_menu1">
+{% include "blog/includes/filter_panel.html" %}
 </div>
+
+<div class="span4">
+{% include "blog/includes/blog_profile.html" %}
+</div>
+
+
 {% endwith %}
+
 {% endblock %}

@@ -1,6 +1,18 @@
-{% extends "pages/richtextpage.html" %}
 
+{% extends "base.html" %}
+{% load i18n mezzanine_tags blog_tags keyword_tags disqus_tags %}
+{% load slider_tags %}
+
+{% block extra_css %}
+{% endblock %}
+
+{% block left_panel %}
+{% endblock %}
+
+{% block center_panel_size %}12{% endblock %}
 {% block main %}
 
+{% include "includes/homeslider.html" %}
+</div>
 {{ block.super }}
 {% endblock %}

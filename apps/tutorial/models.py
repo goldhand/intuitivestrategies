@@ -14,8 +14,8 @@ class Tutorial(Page):
 	rating 		= RatingField(verbose_name=_("Rating"))
 
 	position	= models.IntegerField(help_text="The position to order on menu")
-        image                   = ProcessedImageField([Adjust(contrast=1.2, sharpness=1.1), ResizeToFill(460, 300)], upload_to="uploads", format='JPEG', options={'quality': 90})
-	content		= models.TextField()
+        image                   = ProcessedImageField([Adjust(contrast=1.2, sharpness=1.1), ResizeToFill(460, 300)], upload_to="uploads", format='JPEG', options={'quality': 90}, null=True, blank=True)
+	content		= models.TextField(null=True, blank=True)
 
 	class Meta:
 	        verbose_name = _("Tutorial")

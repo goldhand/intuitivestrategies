@@ -34,7 +34,7 @@ class UserProfile(models.Model):
 
 	user 		= models.OneToOneField(User, null=True)
 	alias		= models.CharField(max_length=100)
-	tagline		= models.CharField(max_length=100, help_text="make it short and catchy!", null=True, blank=True)
+	tagline		= models.CharField(max_length=200, help_text="make it short and catchy!", null=True, blank=True)
 	about_me	= models.TextField(null=True, blank=True)
 
 	profile_image	= models.ImageField(upload_to="userprofile")
@@ -49,8 +49,10 @@ class UserProfile(models.Model):
 	google_plus	= models.CharField(max_length=100, help_text="enter the number sequence on in the url bar on your g+ profile page", verbose_name="google plus    www.plus.google.com/*", null=True, blank=True)
 	linkedin	= models.CharField(max_length=100, verbose_name="linkedin    www.linkedin.com/*", null=True, blank=True)
 	youtube		= models.CharField(max_length=100, verbose_name="youtube    www.youtube.com/*", null=True, blank=True)
+
 	def __unicode__(self):
 		return self.alias
+
 
 def create_userprofile_user_callback(sender, instance, **kwargs):
 	userprofile, new = UserProfile.objects.get_or_create(user=instance)

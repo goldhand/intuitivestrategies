@@ -9,11 +9,10 @@
 <div class="span3">
 <dl class="unstylized">
 {% endif %}
-	<dt><a href="{{ page.get_absolute_url }}"><em>
-	{% if page.tutorial.section_set.all %}
-	{{ page.tutorial.position }} 
-	{% endif %}
-	{{ page.tutorial.title }}
+	<dt><a href="{{ page.get_absolute_url }}"><em>{% if page.parent.parent.parent.parent %}{{ page.parent.parent.tutorial.position}}.{{ page.parent.tutorial.position }}{{ page.tutorial.position }}
+	{% elif page.parent.parent.parent %}{{ page.parent.tutorial.position}}.{{ page.tutorial.position }}
+	{% elif page.parent.parent %}{{ page.tutorial.position }}{% endif %}
+	&nbsp;{{ page.title }}
 	</em></a></dt>
 	<dd style="margin-bottom:20px;">
 	{{ page.tutorial.content|truncatewords:20 }}
