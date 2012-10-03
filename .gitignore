@@ -5,6 +5,11 @@ test/*
 rhl/*
 static/media/*
 static/mezzanine/*
+deploy/*
+
+
+static/*
+
 
 *.pyc
 *.pyo
@@ -15,3 +20,4 @@ static/mezzanine/*
 local_settings.py
 media/
 production_settings.py
+settings.py
