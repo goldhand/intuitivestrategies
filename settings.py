@@ -8,8 +8,9 @@ PROFILE_UPDATE_URL ="userprofile_update/"
 PASSWORD_RESET_URL ="password_reset/"
 PASSWORD_RESET_VERIFY_URL = "password_reset_verify/"
 
-#AUTH_PROFILE_MODULE = "userprofile.UserProfile"
+AUTH_PROFILE_MODULE = "userprofile.UserProfile"
 ACCOUNTS_PROFILE_FORM_EXCLUDE_FIELDS = (
+    "profile_image",
     "limage",
     "dimage",
     "timage",

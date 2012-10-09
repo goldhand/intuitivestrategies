@@ -1,47 +1,62 @@
-# -*- coding: utf-8 -*-
+# encoding: utf-8
 import datetime
 from south.db import db
 from south.v2 import SchemaMigration
 from django.db import models
 
-
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'CaroselImage'
-        db.create_table('carosel_caroselimage', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('title', self.gf('django.db.models.fields.CharField')(max_length=100, null=True, blank=True)),
-            ('image', self.gf('imagekit.models.fields.ProcessedImageField')(max_length=100)),
-            ('author', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['author.Author'])),
+        
+        # Adding model 'Gallery'
+        db.create_table('galleries_gallery', (
+            ('page_ptr', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['pages.Page'], unique=True, primary_key=True)),
+            ('content', self.gf('mezzanine.core.fields.RichTextField')()),
+            ('zip_import', self.gf('django.db.models.fields.files.FileField')(max_length=100, blank=True)),
         ))
-        db.send_create_signal('carosel', ['CaroselImage'])
+        db.send_create_signal('galleries', ['Gallery'])
+
+        # Adding model 'GalleryImage'
+        db.create_table('galleries_galleryimage', (
+            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('_order', self.gf('django.db.models.fields.IntegerField')(null=True)),
+            ('gallery', self.gf('django.db.models.fields.related.ForeignKey')(related_name='images', to=orm['galleries.Gallery'])),
+            ('file', self.gf('mezzanine.core.fields.FileField')(max_length=200)),
+            ('description', self.gf('django.db.models.fields.CharField')(max_length=1000, blank=True)),
+        ))
+        db.send_create_signal('galleries', ['GalleryImage'])
 
 
     def backwards(self, orm):
-        # Deleting model 'CaroselImage'
-        db.delete_table('carosel_caroselimage')
+        
+        # Deleting model 'Gallery'
+        db.delete_table('galleries_gallery')
+
+        # Deleting model 'GalleryImage'
+        db.delete_table('galleries_galleryimage')
 
 
     models = {
-        'author.author': {
-            'Meta': {'ordering': "('_order',)", 'object_name': 'Author', '_ormbases': ['pages.Page']},
-            'dob': ('django.db.models.fields.DateTimeField', [], {}),
-            'page_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['pages.Page']", 'unique': 'True', 'primary_key': 'True'})
-        },
-        'carosel.caroselimage': {
-            'Meta': {'object_name': 'CaroselImage'},
-            'author': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['author.Author']"}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'image': ('imagekit.models.fields.ProcessedImageField', [], {'max_length': '100'}),
-            'title': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'})
-        },
         'contenttypes.contenttype': {
             'Meta': {'ordering': "('name',)", 'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},
             'app_label': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
+        },
+        'galleries.gallery': {
+            'Meta': {'ordering': "('_order',)", 'object_name': 'Gallery', '_ormbases': ['pages.Page']},
+            'content': ('mezzanine.core.fields.RichTextField', [], {}),
+            'page_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['pages.Page']", 'unique': 'True', 'primary_key': 'True'}),
+            'zip_import': ('django.db.models.fields.files.FileField', [], {'max_length': '100', 'blank': 'True'})
+        },
+        'galleries.galleryimage': {
+            'Meta': {'ordering': "('_order',)", 'object_name': 'GalleryImage'},
+            '_order': ('django.db.models.fields.IntegerField', [], {'null': 'True'}),
+            'description': ('django.db.models.fields.CharField', [], {'max_length': '1000', 'blank': 'True'}),
+            'file': ('mezzanine.core.fields.FileField', [], {'max_length': '200'}),
+            'gallery': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'images'", 'to': "orm['galleries.Gallery']"}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'})
         },
         'generic.assignedkeyword': {
             'Meta': {'ordering': "('_order',)", 'object_name': 'AssignedKeyword'},
@@ -55,29 +70,28 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'Keyword'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'site': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['sites.Site']"}),
-            'slug': ('django.db.models.fields.CharField', [], {'max_length': '2000', 'null': 'True', 'blank': 'True'}),
-            'title': ('django.db.models.fields.CharField', [], {'max_length': '500'})
+            'slug': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
+            'title': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
         'pages.page': {
             'Meta': {'ordering': "('titles',)", 'object_name': 'Page'},
-            '_meta_title': ('django.db.models.fields.CharField', [], {'max_length': '500', 'null': 'True', 'blank': 'True'}),
             '_order': ('django.db.models.fields.IntegerField', [], {'null': 'True'}),
             'content_model': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
             'description': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
             'expiry_date': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
-            'gen_description': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'in_menus': ('mezzanine.pages.fields.MenusField', [], {'default': '[1, 2, 3, 4]', 'max_length': '100', 'null': 'True', 'blank': 'True'}),
-            'keywords': ('mezzanine.generic.fields.KeywordsField', [], {'object_id_field': "'object_pk'", 'to': "orm['generic.AssignedKeyword']", 'frozen_by_south': 'True'}),
+            'in_footer': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'in_navigation': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
+            'keywords': ('mezzanine.generic.fields.KeywordsField', [], {'object_id_field': "'object_pk'", 'to': "orm['generic.AssignedKeyword']"}),
             'keywords_string': ('django.db.models.fields.CharField', [], {'max_length': '500', 'blank': 'True'}),
             'login_required': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'parent': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'children'", 'null': 'True', 'to': "orm['pages.Page']"}),
             'publish_date': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
             'short_url': ('django.db.models.fields.URLField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
             'site': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['sites.Site']"}),
-            'slug': ('django.db.models.fields.CharField', [], {'max_length': '2000', 'null': 'True', 'blank': 'True'}),
+            'slug': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
             'status': ('django.db.models.fields.IntegerField', [], {'default': '2'}),
-            'title': ('django.db.models.fields.CharField', [], {'max_length': '500'}),
+            'title': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'titles': ('django.db.models.fields.CharField', [], {'max_length': '1000', 'null': 'True'})
         },
         'sites.site': {
@@ -88,4 +102,4 @@ class Migration(SchemaMigration):
         }
     }
 
-    complete_apps = ['carosel']
+    complete_apps = ['galleries']

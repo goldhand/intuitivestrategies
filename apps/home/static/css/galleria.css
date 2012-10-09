@@ -1,0 +1,28 @@
+@media (max-width:767px) {
+#galleria {
+width: 480px;
+height: auto;
+}}
+@media (min-width:768px) and (max-width:979px) {
+#galleria {
+width: 724px;
+height: auto;
+}}
+@media (min-width:980px) and (max-width:1259px) {
+#galleria {
+width: 940px;
+height: auto;
+
+}}
+@media (min-width:1260px) {
+#galleria {
+width: 1170px;
+height: auto;
+
+}}
+
+.galleria-container {
+background-color: #fff;
+}
+
+

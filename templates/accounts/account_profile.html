@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% load i18n mezzanine_tags blog_tags keyword_tags disqus_tags %}
+{% load i18n mezzanine_tags %}
+{% load responsive_tags %}
+
+{% block extra_css %}
+<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}/css/userprofile.css" />
+{% endblock %}
+
+{% block meta_title %}{{ profile_user.username }}{% endblock %}
+{% block title %}{{ profile_user.username }}{% endblock %}
+{% block body_id %}account{% endblock %}
+
+{% block breadcrumb_menu %}
+{{ block.super }}
+<li><i class="icon-user"></i>&nbsp;{{ profile_user.username }}</li>
+{% endblock %}
+
+{% block left_panel %}
+<div class="span3">
+
+{% with profile_user as author %}
+{% include "blog/includes/blog_profile.html" %}
+{% endwith %}
+
+
+</div>
+
+
+{% endblock %}
+
+
+{% block center_panel_size %}9{% endblock %}
+{% block main %}
+<div class="row">
+
+<div class="span9">
+{% if profile_user.userprofile.companyprofile %}
+{% with profile_user.userprofile.companyprofile as company %}
+
+{% if company.profile_image %}
+{{ company|responsive:"company" }}
+{% else %}
+<h1>{{ company.title }}</h1>
+{% endif %}
+
+<div class="row">
+<div class="span9">
+<h2 class="pull-right"><em>{{ profile_user.userprofile.position_title }}</em></h2>
+<h1 class="pull-left">{{ profile_user.get_full_name }}</h1>
+<!--COMPANY PAGE BUTTON
+<a href="{{ company.get_absolute_url }}" class="btn btn-inverse pull-left" style="margin-top:10px;">View Company Page</a>
+-->
+</div>
+</div>
+
+{% endwith %}
+{% else %}
+<h1>{{ profile_user.get_full_name }}</h1>
+{% endif %}
+
+
+<h3>{{ profile_user.userprofile.tagline }}</h3>
+
+
+<p>{{ profile_user.userprofile.about_me|safe }}</p>
+
+</div>
+</div>
+{% if profile_user.userprofile.companyprofile %}
+{% with profile_user.userprofile.companyprofile as company %}
+ 
+<div class="row">
+<div class="span9">
+
+<h2>{{ company.title }}</h2>
+
+<p>{{ company.description|safe }}</p>
+
+</div>
+</div>
+
+{% endwith %}
+{% endif %}
+
+
+
+
+{% endblock %}

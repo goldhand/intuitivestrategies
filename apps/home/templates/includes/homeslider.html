@@ -1,0 +1,77 @@
+{% load slider_tags i18n mezzanine_tags %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{ STATIC_URL }}css/homepage.css">
+{% endblock %}
+
+
+
+<div class="row">
+<div id="MediaCarousel" class="carousel homeslider span12 hidden-phone">
+	<div class="carousel-inner">
+	
+	<div class="row">
+	
+	<div class="span8 offset4">
+	{% for image in page.homepage.homeslides_set.all %}
+		<div class="{% if forloop.first %}active {% endif %}item">
+			{{ image|responseimg:"homeslides" }}
+    			<div class="carousel-caption">
+			<h4>{{ image.title }}</h4>
+			<p>{{ image.description|truncatewords:50 }}</p>
+		    	</div>
+		</div>
+	{% endfor %}
+	</div>
+
+	</div>
+
+	</div>
+<div class="homeslider-control">
+	<a class="left" href="#MediaCarousel" data-slide="prev"><i class="icon-backward"></i></a>
+{% for image in page.homepage.homeslides_set.all %}
+<a class="thumb" data-toggle="modal" href="#{{ image.slug }}">
+<img src="{{ STATIC_URL }}{{ image.thumbnail }}"></img>
+</a>
+{% endfor %}
+	<a class="right" href="#MediaCarousel" data-slide="next"><i class="icon-forward"></i></a>
+</div>
+
+</div>
+</div>
+{# end of the carosel large display. Start carosel modals #}
+<div class="row hidden-desktop" id="CarouselIcons">
+
+
+{% for image in page.author.caroselimage_set.all %}
+	<div class='span3'>
+		<div class='well-small' style='height:30px; font-size:14px;'>
+		<p><strong>{{ image.title }}</strong><p>
+		</div>
+	<a class="thumbnail" data-toggle="modal" href="#{{ image.title }}">
+	<img src="{{ MEDIA_URL }}{{ image.image }}" style='height:90px;' />
+	</a>
+	<p>{{ image.description|truncatewords:10 }}</p>
+	</div>
+
+{% endfor %}
+
+</div>
+
+{% for image in page.homepage.homeslides_set.all %}
+<div class="modal hide fade" id="{{ image.slug }}">
+	<div class="modal-header">
+       	<button type="button" class="close" data-dismiss="modal">×</button>
+       	<h3>{{ image.title }}</h3>
+       	</div>
+       	<div class="modal-body">
+       	<img src="{{ MEDIA_URL }}{{ image.response_img }}"/>
+       	</div>
+       	<div class="modal-footer">
+       	<p>{{ image.description }}</p>
+       	<a href="#" class="btn" data-dismiss="modal">Close</a>
+
+      	</div>
+
+</div>
+
+{% endfor %}

@@ -8,41 +8,26 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'UserProfile'
-        db.create_table('userprofile_userprofile', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True, null=True)),
-            ('alias', self.gf('django.db.models.fields.CharField')(max_length=100)),
-            ('tagline', self.gf('django.db.models.fields.CharField')(max_length=200, null=True, blank=True)),
-            ('about_me', self.gf('django.db.models.fields.TextField')(null=True, blank=True)),
-            ('profile_image', self.gf('django.db.models.fields.files.ImageField')(max_length=100, null=True, blank=True)),
-            ('facebook', self.gf('django.db.models.fields.CharField')(max_length=100, null=True, blank=True)),
-            ('twitter', self.gf('django.db.models.fields.CharField')(max_length=50, null=True, blank=True)),
-            ('google_plus', self.gf('django.db.models.fields.CharField')(max_length=100, null=True, blank=True)),
-            ('linkedin', self.gf('django.db.models.fields.CharField')(max_length=100, null=True, blank=True)),
-            ('youtube', self.gf('django.db.models.fields.CharField')(max_length=100, null=True, blank=True)),
-        ))
-        db.send_create_signal('userprofile', ['UserProfile'])
+        # Adding field 'UserProfile.companyprofile'
+        db.add_column('userprofile_userprofile', 'companyprofile',
+                      self.gf('django.db.models.fields.related.ForeignKey')(to=orm['userprofile.CompanyProfile'], null=True, blank=True),
+                      keep_default=False)
 
-        # Adding model 'CompanyProfile'
-        db.create_table('userprofile_companyprofile', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('title', self.gf('django.db.models.fields.CharField')(max_length=100, null=True, blank=True)),
-            ('slug', self.gf('django.db.models.fields.CharField')(max_length=50)),
-            ('about', self.gf('django.db.models.fields.TextField')(null=True, blank=True)),
-            ('image', self.gf('django.db.models.fields.files.ImageField')(max_length=100, null=True, blank=True)),
-            ('website', self.gf('django.db.models.fields.URLField')(max_length=100, null=True, blank=True)),
-            ('userprofile', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['userprofile.UserProfile'], null=True, blank=True)),
-        ))
-        db.send_create_signal('userprofile', ['CompanyProfile'])
+        # Removing M2M table for field companyprofile on 'UserProfile'
+        db.delete_table('userprofile_userprofile_companyprofile')
 
 
     def backwards(self, orm):
-        # Deleting model 'UserProfile'
-        db.delete_table('userprofile_userprofile')
+        # Deleting field 'UserProfile.companyprofile'
+        db.delete_column('userprofile_userprofile', 'companyprofile_id')
 
-        # Deleting model 'CompanyProfile'
-        db.delete_table('userprofile_companyprofile')
+        # Adding M2M table for field companyprofile on 'UserProfile'
+        db.create_table('userprofile_userprofile_companyprofile', (
+            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
+            ('userprofile', models.ForeignKey(orm['userprofile.userprofile'], null=False)),
+            ('companyprofile', models.ForeignKey(orm['userprofile.companyprofile'], null=False))
+        ))
+        db.create_unique('userprofile_userprofile_companyprofile', ['userprofile_id', 'companyprofile_id'])
 
 
     models = {
@@ -86,16 +71,16 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'CompanyProfile'},
             'about': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'image': ('django.db.models.fields.files.ImageField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
+            'profile_image': ('django.db.models.fields.files.ImageField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
             'slug': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
-            'userprofile': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['userprofile.UserProfile']", 'null': 'True', 'blank': 'True'}),
             'website': ('django.db.models.fields.URLField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'})
         },
         'userprofile.userprofile': {
             'Meta': {'object_name': 'UserProfile'},
             'about_me': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
             'alias': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
+            'companyprofile': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['userprofile.CompanyProfile']", 'null': 'True', 'blank': 'True'}),
             'facebook': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
             'google_plus': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),

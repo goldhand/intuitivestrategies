@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+{% load pages_tags mezzanine_tags i18n %}
+
+<html>
+<head>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
+<script src="{{ STATIC_URL }}galleria/galleria-1.2.8.min.js"></script>
+
+<link href='http://fonts.googleapis.com/css?family={{ ffamily }}' rel='stylesheet' type='text/css'>
+
+<link href="{{ STATIC_URL}}css/bootstrap.responsive.css" rel="stylesheet" type="text/css">
+<link href="{{ STATIC_URL}}assets/css/bootstrap.css" rel="stylesheet" type="text/css">
+<link href="{{ STATIC_URL}}css/deldu_smm_icons.css" rel="stylesheet" type="text/css">
+<style>
+.edits{
+
+font-family: {{ ffamily_url }};
+font-size: {{ fsize }}px;
+color: #{{ fcolor }};
+
+}
+@media (max-width:767px){
+#galleria {
+width: 500px;
+height: 300px;
+background: #fff;
+}
+}
+@media (min-width:768px){
+#galleria {
+width: 100%;
+height: auto;
+}}
+.galleria-container {
+background-color: #fff;
+width: 100%;
+}
+
+
+
+</style>
+</head>
+
+<body>
+
+<div class="deldu_smm_icons deldu_smm_icons_h">
+<a class="fb" href="facebook.com"></a>
+<a class="gp" href="plus.google.com"></a>
+<a class="tw" href="twitter.com"></a>
+<a class="dr" href="dribbble.com"></a>
+<a class="dg" href="digg.com"></a>
+<a class="tc" href="technorati.com"></a>
+<a class="rs" href="nig"></a>
+<a class="li" href="linkedin.com"></a>
+<a class="fm" href="last.fm"></a>
+
+</div>
+
+<div id="galleria">
+    <img src="{{ STATIC_URL }}/media/uploads/IMG_0388.JPG" data-title="Here is the Title" data-description="A little bit of this here">
+    <img src="{{ STATIC_URL }}/media/uploads/IMG_0560.JPG">
+</div>
+
+
+<script>
+Galleria.loadTheme('{{ STATIC_URL }}galleria/themes/classic/galleria.classic.min.js');
+Galleria.run('#galleria');
+Galleria.configure({
+	imageCrop: true,
+	transition: 'flash',
+	transitionSpeed: 2000,
+	lightbox: true,
+	lightboxFadeSpeed: 500,
+	lightboxTransitionSpeed: 1000,
+	responsive: true,
+	showImagenav: false,
+	autoplay: 7000,
+	imagePanSmoothness: 20,
+	showCounter: true
+});
+</script>
+
+
+
+
+<div style="clear:right;">
+<p class = "edits">Im just testing this is sooo muxh fun!</p>
+</div>
+
+<div>
+<form action="/dev/" method="post">{% csrf_token %}
+{{ styleForm.as_p }}
+<input type="submit" value="Submit" />
+</form>
+</div>
+</body>
+</html>

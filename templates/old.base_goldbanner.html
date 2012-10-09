@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+{% load pages_tags mezzanine_tags i18n %}
+<html>
+<head>
+
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width">
+<meta name="keywords" content="{% block meta_keywords %}{% endblock %}">
+<meta name="description" content="{% block meta_description %}{% endblock %}">
+<title>{% block meta_title %}{% endblock %}{% if settings.SITE_TITLE %} | {{ settings.SITE_TITLE }}{% endif %}</title>
+<link rel="shortcut icon" href="{{ STATIC_URL }}img/favicon.ico">
+
+{% ifinstalled mezzanine.blog %}
+<link rel="alternate" type="application/rss+xml" title="RSS" href="{% url blog_post_feed "rss" %}">
+<link rel="alternate" type="application/atom+xml" title="Atom" href="{% url blog_post_feed "atom" %}">
+{% endifinstalled %}
+<link href='http://fonts.googleapis.com/css?family=Alfa+Slab+One|Dosis' rel='stylesheet' type='text/css'>
+
+<!--GOOGLE FONTS-->
+<link href='http://fonts.googleapis.com/css?family=Alfa+Slab+One|Dosis' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Headland+One|Racing+Sans+One|Quattrocento' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Viga|Stoke|Patua+One|Medula+One|Stint+Ultra+Expanded|Capriola|Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+
+
+{% compress css %}
+<link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.css">
+<link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.responsive.css">
+<link rel="stylesheet" href="{{ STATIC_URL }}css/mezzanine.css">
+{% ifinstalled cartridge.shop %}
+<link rel="stylesheet" href="{{ STATIC_URL }}css/cartridge.css">
+{% endifinstalled %}
+<!--<link href="{{ STATIC_URL }}css/facebook.css" type="text/css" rel="stylesheet" media="all" />-->
+
+<link rel="stylesheet" href="{{ STATIC_URL }}css/usersheet.css">
+<link rel="stylesheet" href="{{ STATIC_URL }}css/smm.css">
+{% block extra_css %}{% endblock %}
+{% endcompress %}
+
+{% compress js %}
+<script src="{{ STATIC_URL }}mezzanine/js/{{ settings.JQUERY_FILENAME }}"></script>
+<script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+
+<script>
+$(function() {
+    $('.middleinput:text, textarea').addClass('xlarge');
+    $('.control-group label').addClass('control-label');
+});
+</script>
+
+{# {% include 'django_facebook/_facebook_js.html' %} #}
+
+{% block extra_js %}{% endblock %}
+{% endcompress %}
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+{% block extra_head %}{% endblock %}
+
+
+</head>
+<body id="{% block body_id %}body{% endblock %}">
+{% block "topnav" %}
+
+<div class="navbar">
+<div class="navbar-inner">
+<div class="container">
+    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </a>
+    <a class="brand" href="/"></a>
+<!--    
+{% if settings.SITE_TAGLINE %}<p class="tagline">{{ settings.SITE_TAGLINE }}</p>{% endif %}-->
+    <div class="nav-collapse">
+{% comment %}
+	<form action="{% url facebook_connect %}?facebook_login=1" method="post">
+<a href="javascript:void(0);" style="font-size: 20px;" onclick="F.connect(this.parentNode);">Register, login or connect with facebook</a>
+<input type="hidden" value="{{ request.path }}" name="next" />
+	</form>
+{% endcomment %}
+        <form action="{% url search %}" class="navbar-search pull-right">
+        <input class="search-query" placeholder="{% trans "Search" %}" type="text" name="q" value="{{ request.REQUEST.q }}">
+        </form>
+        {% page_menu "pages/menus/dropdown.html" %}
+    </div>
+</div>
+</div>
+</div>
+<div class="topbar">
+<div class="container">
+<img href="{{ STATIC_URL }}img/intuitive_strategies_no_background.png" />
+</div>
+</div>
+
+
+<div class="transbox">
+</div>
+
+<div class="container">
+
+{% nevercache %}
+{% for message in messages %}
+<div class="alert alert-{{ message.tags }}" data-alert="alert">
+<a class="close" href="#" onclick="$(this).parent().fadeOut('fast'); return false;">×</a>{{ message }}
+</div>
+{% endfor %}
+{% endnevercache %}
+
+<div class="row body_head">
+<div class="span5">
+<h1>&nbsp<!--{% block title %}{% endblock %}--></h1>
+</div>
+<div class="span7">
+<div class="pull-right">
+<ul class="breadcrumb">
+{% spaceless %}
+{% block breadcrumb_menu %}{% page_menu "pages/menus/breadcrumb.html" %}{% endblock %}
+{% endspaceless %}
+</ul>
+</div>
+</div>
+</div>
+{% endblock %}
+
+<!--MAIN BODY-->
+
+<div class="row body_head">
+
+
+<div class="span{% block left_panel_size %}2{% endblock %} left">
+    {% block left_panel %}
+    <div class="panel tree">{% page_menu "pages/menus/tree.html" %}</div>
+    {% endblock %}
+</div>
+
+<div class="span{% block center_panel_size %}10{% endblock %} middle">
+    {% block main %}{% endblock %}
+</div>
+
+
+</div>
+</div>
+
+<!--END MAIN BODY-->
+
+
+<footer>
+<div class="container">
+{% page_menu "pages/menus/footer.html" %}
+<br style="clear:both">
+<p>
+    {% ifinstalled mezzanine.mobile %}
+    <span class="separator">|</span>
+    <a href="{% url set_device "mobile" %}?next={{ request.path }}">{% trans "View Mobile Site" %}</a>
+    {% endifinstalled %}
+</p>
+</div>
+</footer>
+
+{% include "includes/footer_scripts.html" %}
+
+</body>
+</html>

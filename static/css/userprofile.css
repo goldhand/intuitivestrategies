@@ -1,95 +1,12 @@
-.hidden-largedesktop {
-  display: none !important;
-}
-.visible-largedesktop {
-  display: inherit !imporrant;
-}
-.hidden-desktop {
-  display: inherit !important;
-}
-
-.visible-desktop {
-  display: none !important;
-}
-
-@media (min-width: 768px) and (max-width: 979px) {
-  .hidden-largedesktop {
-    display: inherit !important;
-  }
-  .visible-largedesktop {
-    display: none !important ;
-  }
-}
 
 
-@media (max-width: 767px) {
-  .hidden-largedesktop {
-    display: inherit !important;
-  }
-  .visible-largedesktop {
-    display: none !important;
-  }
-}
-
-@media (min-width: 980px) and (max-width: 1159px) {
-  .hidden-largedesktop {
-    display: inherit !important;
-  }
-  .visible-largedesktop {
-    display: none !important ;
-  }
-  .hidden-desktop {
-    display: none !important;
-  }
-  .visible-desktop {
-    display: inherit !important;
-  }
-}
-
-
-
-
-@media (min-width: 1200px) {
-  .hidden-largedesktop {
-    display: none !important;
-  }
-  .visible-largedesktop {
-    display: inherit !important;
-  }
-  .visible-desktop {
-    display: none !important;
-  }
-}
 
 
 img.userprofile{
 margin: 5px 0 2px 0;
 
 }
-/*
-div.userprofile {
-padding: 10px;
-background-color: #FBFBFB;
-background-image: -moz-linear-gradient(top, white, whiteSmoke);
-background-image: -ms-linear-gradient(top, white, whiteSmoke);
-background-image: -webkit-gradient(linear, 0 0, 0 100%, from(white), to(whiteSmoke));
-background-image: -webkit-linear-gradient(top, white, whiteSmoke);
-background-image: -o-linear-gradient(top, white, whiteSmoke);
-background-image: linear-gradient(top, white, whiteSmoke);
-background-repeat: repeat-x;
-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f5f5f5', GradientType=0);
--webkit-border-radius: 3px;
--moz-border-radius: 3px;
-border-radius: 3px;
--webkit-box-shadow: inset 0 1px 0 white;
--moz-box-shadow: inset 0 1px 0 #ffffff;
-box-shadow: inset 0 1px 0 white;
 
-}
-*/
-h2.userprofile {
-margin-bottom: 15px;
-}
 
 .userprofile h3 {
 text-align: right;
@@ -121,14 +38,70 @@ margin-right:45px;
 color: inherit;
 float: right;
 }
-
-a.thumb_details {
-color: #08C;
-margin-top: 10px;
+div.thumbdetails {
+float: left;
+display: block;
+margin-left: 0px;
+}
+div.thumbdetails div.thumbtitle {
+height: 30px;
+padding-top: 15px;
+}
+div.thumbdetails a{
+font-size: 15px;
+color: #0F1F2E;
 }
 
-img.thumbdetails {
+div.thumbdetails img{
 margin: 5px 10px 2px 0;
+height:30px;
+width: 30px;
+}
 
+div.blog-list-detail {
+padding-bottom: 30px;
+}
+
+div.blog_detail_author_comments {
+padding-top: 50px;
+
+}
+
+div.blog_detail_topProfile {
+border-bottom: solid #ccc 2px;
+margin-bottom: 20px;
+}
+
+
+div.blog_detail_topProfile h3{
+color: #444;
+font-size: 1.1em;
+}
+
+div.blog_detail_topProfile h3 a{
+color: #aaa;
+font-size:1.4em;
+}
+div.blog_detail_topProfile h4 a{
+font-size:1.2em;
+color: #07233D;
+}
+
+.userprofile h3.profilepage{
+margin-top: 30px;
+text-align: left;
+}
+
+.userprofile dt a {
+letter-spacing: 1px;
+color: #356C9E;
+font-size: 1.3em;
+
+}
+
+.userprofile dd {
+line-spacing: 1.2em;
+border-bottom: 1px dashed #ccc;
+margin: 15px auto;
 }
 

@@ -1,0 +1,60 @@
+
+
+.homeslider {
+background-color: #eee;
+border-radius: 20px;
+padding:20px;
+}
+
+.homeslider .carousel-caption{
+position: relative;
+left: 0px;
+right:0px;
+bottom:0px;
+
+}
+
+.homeslides {
+
+
+}
+
+.homeslider .carousel-caption {
+position: absolute;
+left: -50%;
+right: 110%;
+bottom: 20%;
+top: 0;
+}
+
+.homeslider-control {
+position: absolute;
+bottom: 10%;
+left: 0;
+top: auto;
+right: 72%;
+padding-left:30px;
+}
+/*
+.homeslider-control a.left {
+position: relative;
+left: 10%;
+}
+
+.homeslider-control a.right {
+position: relative;
+left: 92%;
+}
+*/
+.homeslider-control a {
+display: block;
+float:left;
+height: 30px;
+width: 30px;
+margin:5px;
+}
+
+.homeslider-control a.thumb img{
+height: 30px;
+width:30px;
+}
