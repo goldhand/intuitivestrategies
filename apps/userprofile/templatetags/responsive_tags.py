@@ -16,12 +16,11 @@ def responsive(value, arg, autoescape=None):
 	else:
 		esc = lambda x: x
 
-	l = value.userprofile.limage.url
-	d = value.userprofile.dimage.url
-	t = value.userprofile.timage.url
-	p = value.userprofile.thumbnail.url
+	l = value.limage.url
+	d = value.dimage.url
+	t = value.timage.url
 
-	result = '<img class="visible-largedesktop %s" src="%s"/><img class="visible-desktop %s" src="%s" /><img class="visible-tablet %s" src="%s" /><img class="visible-phone %s" src="%s" />' % (esc(arg), esc(l), esc(arg), esc(d), esc(arg), esc(t), esc(arg), esc(p))
+	result = '<img class="visible-largedesktop %s" src="%s" alt="%s"/><img class="visible-desktop %s" src="%s" alt="%s"/><img class="visible-tablet %s" src="%s" alt="%s"/>' % (esc(arg), esc(l), esc(value), esc(arg), esc(d), esc(value), esc(arg), esc(t), esc(value))
 	
 	return mark_safe(result)
 

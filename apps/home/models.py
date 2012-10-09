@@ -1,22 +1,47 @@
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
 from mezzanine.pages.models import Page
-from mezzanine.blog.models import BlogCategory
-
+from mezzanine.blog.models import *
 from imagekit.models import ImageSpecField, ProcessedImageField
 from imagekit.processors import ResizeToFill, Adjust
+from apps.tutorial.models import Tutorial
 
 
+import datetime
+import time
+current_time = datetime.datetime.now().date()
+
+def trendScore(post, ctime=current_time):
+	pTime		= post.publish_date.date()
+	pTimeDelta 	= ctime - pTime
+	pRate		= post.rating_average*post.rating_count
+	pScore		= pRate*(1-(pTimeDelta.days/200))
+	if pScore <= 0:
+		pScore = 1
+	return pScore
+
+def allBlogPosts():
+	allPosts = []
+	for post in BlogPost.objects.all():
+		score = trendScore(post)
+		allPosts.append((score, post))
+	allPosts = sorted(allPosts, reverse=True)
+	return allPosts
+
+TRENDING_BLOGS = allBlogPosts()
 
 class HomePage(Page):
 	home_theme	= models.CharField(max_length=50)
-
+	feat_tuts 	= models.ManyToManyField(Tutorial, blank=True)
+	feat_blogs	= TRENDING_BLOGS[:10]
         class Meta:
                 verbose_name = _("Home Page")
                 verbose_name_plural = _("Home Pages")
 
 	def __unicode__(self):
 		return self.home_theme
+
+
 
 class HomeSlides(models.Model):
         #returns images cropped for responsive design, l=large desktop, d=desktop, t=tablet, none=thumbnail     

@@ -55,8 +55,9 @@
 <h3>{% trans "Contributors" %}</h3>
 <ul class="unstyled">
 {% for author in authors %}
-    <li><a href="{% url blog_post_list_author author.username %}"
-        ><img src="{{ author.userprofile.thumbnail.url }}"></img>&nbsp; | &nbsp;{{ author.get_full_name|default:author.username }}</a>
+    <li><a href="{% url blog_post_list_author author.username %}">
+	{% if author.userprofile.profile_image %}
+	<img src="{{ author.userprofile.thumbnail.url }}"></img>{% else %}-{% endif %}&nbsp; | &nbsp;{{ author.get_full_name|default:author.username }}</a>
         ({{ author.post_count }})</li>
 {% endfor %}
 </ul>

@@ -1,44 +1,127 @@
 {% load i18n mezzanine_tags blog_tags keyword_tags disqus_tags %}
 {% load responsive_tags %}
 
+
 <div class="userprofile">
+{% if not profile_user %}
 	<div class="row">
 		<div class="span4">
-		<h3>{{ author.get_full_name }}</h3>
-		<h4>{% for group in author.groups.all %}{{ group }}{% if not forloop.last %}, {% endif %}{% endfor %}</h4>
+		<h3>
+		{% if blog_post %}
+		<a href="{% url blog_post_list_author author.username %}">
+		{% else %}
+		<a href="/userprofile/{{ author.username }}">
+		{% endif %}
+		{{ author.get_full_name }}
+		</a></h3>
+		
+		<h4>
+		{% for group in author.groups.all %}{{ group }}{% if not forloop.last %}, {% endif %}{% endfor %}
+		{% if author.userprofile.companyprofile %},&nbsp;
+		{{ author.userprofile.position_title }} - {{ author.userprofile.companyprofile.title }}
+		{% endif %}
+		</h4>
+
 		<h5 class="tagline"><em>"{{ author.userprofile.tagline }}"</em></h5>
 		</div>
 	</div>
+{% endif %}
+
 	<div class="row">
-		<div class="span2">
-			<div class="smm_icons pull-right">
-
-<a class="facebook" href="http://www.facebook.com/{{ author.facebook }}"></a>
-<a class="twitter" href="http://www.twitter.com/{{ author.twitter }}"></a>
-<a class="googleplus" href="http://www.google.plus.com/{{ author.google_plus }}"></a>
-<a class="linkedin" href="http://www.linkedin.com/{{ author.linkedin }}"></a>
-<a class="youtube" href="http://www.youtube.com/{{ author.youtube }}"></a>
-
+		<div class="span{% if profile_user %}1{% else %}2{% endif %}">
+			<div class="smm_icons{% if not profile_user %} pull-right{% endif %}">
+{% if author.userprofile.facebook %}
+<a class="facebook" href="http://www.facebook.com/{{ author.userprofile.facebook }}"></a>
+{% endif %}
+{% if author.userprofile.twitter %}
+<a class="twitter" href="http://www.twitter.com/{{ author.userprofile.twitter }}"></a>
+{% endif %}
+{% if author.userprofile.google_plus %}
+<a class="googleplus" href="http://www.google.plus.com/{{ author.userprofile.google_plus }}"></a>
+{% endif %}
+{% if author.userprofile.linkedin %}
+<a class="linkedin" href="http://www.linkedin.com/{{ author.userprofile.linkedin }}"></a>
+{% endif %}
+{% if author.userprofile.youtube %}
+<a class="youtube" href="http://www.youtube.com/{{ author.userprofile.youtube }}"></a>
+{% endif %}
 			</div>
+
+{% if not profile_user %}
 			<div class="userrecentposts">
-			<p>{{ author.first_name }}'s recent posts:</p>
-			<ul class="unstyled">
-			{% for blog_post in author.blogposts.all %}
-				{% if forloop.counter < 7 %}
-				<li><a href="{{ blog_post.get_absolute_url }}">{{ blog_post.title }}</a></li>
-				{% endif %}
-			{% endfor %}
-			</ul>
+	<p>Recent Posts:</p>
+	<ul class="unstyled">
+	{% for blog_post in author.blogposts.all %}
+	{% if forloop.counter < 6 %}
+	<li><a href="{{ blog_post.get_absolute_url }}">{{ blog_post.title }}</a></li>
+	{% endif %}
+	{% endfor %}
+	<li style="border: 0px;"><a class="pull-right" href="{% url blog_post_list_author author.username %}">More Posts...</a></li>
+	</ul>
 			</div>
+{% endif %}
+
 		</div>
 		<div class="span2">
-		{{ author|responsive:"userprofile span2" }}
+	{% if blog_post %}
+	<a href="{% url blog_post_list_author author.username %}">
+	{% else %}
+	<a href="/userprofile/{{ author.username }}">
+	{% endif %}
+	{% if author.userprofile.profile_image %}
+	{{ author.userprofile|responsive:"userprofile span2" }}
+	{% else %}
+	{{ author.get_full_name }}
+	{% endif %}
+	</a>
 		</div>
 	</div>
-<p>{{ author.userprofile.about_me }}</p>
+{% if not profile_user %}
+<p>{{ author.userprofile.about_me|truncatewords:100 }}
+<a href="{{ author.get_absolute_url }}">
+Visit {{ author.first_name }}'s Profile
+</a>
+</p>
+
+{% endif %}
+
 <ul class="unstyled">
 <li>Email: {{ author.email }}
+{% if author.userprofile.companyprofile %}
+<li>{{ author.userprofile.position_title }}: {{ author.userprofile.companyprofile.title }}</li>
+{% endif %}
+
 <li>Member Since: {{ author.date_joined }}</li>
+
 </ul>
 
+{% if author == request.user %}
+<br><br><a class="btn btn-large btn-primary" style="" href="{% url profile_update %}">{% trans "Update profile" %}</a>
+{% endif %}
+
 </div>
+
+{% if profile_user %}
+<div class="row">
+	<div class="span3 userprofile">
+	<h3 class="profilepage">{{ author.first_name }}'s Contributions:</h3>
+	<dl class="userprofile">
+        {% for blog_post in author.blogposts.all %}
+        {% if forloop.counter < 11 %}
+        <dt><a href="{{ blog_post.get_absolute_url }}">{{ blog_post.title }}</a></dt>
+
+	<dd>{{ blog_post.description_from_content|truncatewords:20|safe }}
+	<a href="{{ blog_post.get_absolute_url }}">read more</a></p>
+	</dd>
+        {% endif %}
+        {% endfor %}
+        </dl>
+        </div>
+</div>
+{% endif %}
+
+
+
+
+
+
